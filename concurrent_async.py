@@ -48,7 +48,8 @@ async def main():
         asyncio.create_task(worker("C", 2)),
     ]
     await asyncio.gather(*tasks)
-
+    worker
+    await worker("A", 2.5)
 
 if __name__ == "__main__":
     asyncio.run(main())
