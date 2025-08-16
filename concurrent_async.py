@@ -6,9 +6,11 @@ async def fetch_some_data():
     await asyncio.sleep(1)
     return "some data"
 
+
 async def fetch_network_data():
     await asyncio.sleep(2)
     return "network data"
+
 
 async def another_function():
     print("Another function started")
@@ -16,12 +18,14 @@ async def another_function():
     print("Another function finished")
     return "another data"
 
+
 async def normal_manual_function():
     start_time = time.time()
 
     some_data = asyncio.create_task(fetch_some_data())
     network_data = asyncio.create_task(fetch_network_data())
-    another_func_data = asyncio.create_task(another_function())
+    asyncio.create_task(another_function())
+    # FOR REFERENCE _another_func_data = asyncio.create_task(another_function())
 
     result_some_data = await some_data
     result_network_data = await network_data
@@ -32,13 +36,14 @@ async def normal_manual_function():
     # print(result_another_data)
 
     end_time = time.time()
-    print("Total Time",end_time - start_time)
+    print("Total Time", end_time - start_time)
 
 
 async def worker(name, delay):
     print(f"{name} started")
     await asyncio.sleep(delay)
     print(f"{name} finished after {delay}s")
+
 
 async def main():
     tasks = [
@@ -50,6 +55,7 @@ async def main():
     await asyncio.gather(*tasks)
     worker
     await worker("A", 2.5)
+
 
 if __name__ == "__main__":
     asyncio.run(main())
