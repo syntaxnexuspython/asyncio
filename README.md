@@ -28,4 +28,50 @@ This is learning about asyncio and all it features
 
 - Instead of running everything at once, it switches between coroutines whenever they’re waiting (like on await asyncio.sleep(), I/O, network, etc.).
 
-- It gives the illusion of doing many things at the same time (concurrency), it is doing things in concurrent nor parallel
+- It gives the illusion of doing many things at the same time (concurrency), but it is not parallel.
+
+
+## Ways to Run Coroutines
+
+1. Normal await
+
+    - Directly run a coroutine and wait for its result.
+
+    -Tasks run sequentially if you just await one after another.
+    ```python
+    result = await worker("A", 2)
+    ```
+2. asyncio.create_task
+
+    - Wraps a coroutine into a Task object.
+
+    - The task starts running immediately in the background once created.
+
+    - Allows multiple tasks to run concurrently.
+    ```python
+    task = asyncio.create_task(worker("A", 2))
+    result = await task
+    ```
+3. asyncio.gather
+
+    - Runs multiple coroutines concurrently and waits for all of them to finish.
+
+    - Returns results as a list/tuple
+    ```python
+    results = await asyncio.gather(worker("A", 2), worker("B", 1))
+    ```
+
+4. asyncio.TaskGroup (Python 3.11+)
+
+    - Provides structured concurrency.
+
+    - Ensures that when you exit the TaskGroup block, all tasks have either completed or been cancelled.
+
+    - Handles multiple exceptions as ExceptionGroup
+
+    ```python
+    async with asyncio.TaskGroup() as tg:
+        tg.create_task(worker("A", 2))
+        tg.create_task(worker("B", 1))
+    ```
+
