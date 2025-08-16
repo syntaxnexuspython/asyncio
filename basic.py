@@ -1,13 +1,13 @@
 import asyncio
 
 
-async def async_function():
+async def async_function() -> None:
     print("hello from before sleep")
     await asyncio.sleep(2)
     print("hello from after sleep")
 
 
-async def main():
+async def main() -> None:
     print("Before starting function")
     await asyncio.sleep(1)
 

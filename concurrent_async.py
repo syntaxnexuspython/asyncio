@@ -2,24 +2,24 @@ import asyncio
 import time
 
 
-async def fetch_some_data():
+async def fetch_some_data() -> str:
     await asyncio.sleep(1)
     return "some data"
 
 
-async def fetch_network_data():
+async def fetch_network_data() -> str:
     await asyncio.sleep(2)
     return "network data"
 
 
-async def another_function():
+async def another_function() -> str:
     print("Another function started")
     await asyncio.sleep(3)
     print("Another function finished")
     return "another data"
 
 
-async def normal_manual_function():
+async def normal_manual_function() -> None:
     start_time = time.time()
 
     some_data = asyncio.create_task(fetch_some_data())
@@ -39,13 +39,13 @@ async def normal_manual_function():
     print("Total Time", end_time - start_time)
 
 
-async def worker(name, delay):
+async def worker(name: str, delay: int | float) -> None:
     print(f"{name} started")
     await asyncio.sleep(delay)
     print(f"{name} finished after {delay}s")
 
 
-async def main():
+async def main() -> None:
     tasks = [
         asyncio.create_task(normal_manual_function()),
         asyncio.create_task(worker("A", 2.5)),

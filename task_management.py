@@ -14,7 +14,7 @@
 import asyncio
 
 
-async def worker(name, delay):
+async def worker(name: str, delay: int | float) -> None:
     print(f"{name} started")
     await asyncio.sleep(delay)
     print(f"{name} finished after {delay}s")
@@ -23,7 +23,7 @@ async def worker(name, delay):
 # Create Tasks
 
 
-async def sub_main():
+async def sub_main() -> None:
     # Create a Task
     task = asyncio.create_task(worker("A", 2.5))  # Returns a Task object.
     task2 = asyncio.create_task(worker("B", 1))
@@ -55,16 +55,16 @@ async def sub_main():
 # asyncio.run(sub_main())
 
 
-async def fail():
+async def fail() -> None:
     raise ValueError("Something went wrong")
 
 
-async def work(x):
+async def work(x: int) -> int:
     await asyncio.sleep(1)
     return x * 2
 
 
-async def gather_main():
+async def gather_main() -> None:
     try:
         results = await asyncio.gather(fail(), work(2))
         print(results)
@@ -72,16 +72,16 @@ async def gather_main():
         print("Caught:", e)
 
 
-async def fail_group():
+async def fail_group() -> None:
     raise ValueError("Something went wrong")
 
 
-async def work_group(x):
+async def work_group(x: int) -> int:
     await asyncio.sleep(1)
     return x * 2
 
 
-async def main_group():
+async def main_group() -> None:
     async with asyncio.TaskGroup() as tg:
         tg.create_task(work_group(1))
         tg.create_task(work_group(2))
@@ -91,7 +91,7 @@ async def main_group():
     print("TaskGroup finished")
 
 
-async def main():
+async def main() -> None:
     # await gather_main()
     await main_group()
 
