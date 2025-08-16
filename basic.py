@@ -6,6 +6,7 @@ async def async_function():
     await asyncio.sleep(2)
     print("hello from after sleep")
 
+
 async def main():
     print("Before starting function")
     await asyncio.sleep(1)
@@ -13,8 +14,9 @@ async def main():
     await async_function()
 
     await asyncio.sleep(1)
-    
+
     print("After finishing function")
+
 
 if __name__ == "__main__":
     asyncio.run(main())
